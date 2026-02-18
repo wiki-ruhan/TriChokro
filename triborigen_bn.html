@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TribOriGen | বর্জ্য টায়ারকে টেকসই উপকরণে রূপান্তর</title>
+    <link rel="icon" type="image/jpg" href="src/assets/triborigen logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;600&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tire-black: #1a1a1a;
+            --tire-dark: #0f0f0f;
+            --eco-green: #4ade80;
+        }
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background-color: var(--tire-dark);
+            color: #e5e5e5;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        h1, h2, h3, h4, .formal-font {
+            font-family: 'Noto Serif Bengali', serif;
+        }
+        .tire-texture {
+            background-image: radial-gradient(#2a2a2a 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+        }
+        #cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.08) 0%, rgba(0,0,0,0) 70%);
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            transition: opacity 0.3s ease;
+        }
+        .hover-card {
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .hover-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--eco-green);
+            box-shadow: 0 15px 40px -10px rgba(74, 222, 128, 0.15);
+        }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.6s;
+        }
+        .btn-shine:hover::before {
+            left: 100%;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: var(--eco-green);
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .nav-glass {
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #4ade80;
+            cursor: pointer;
+            margin-top: -10px; 
+            box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #333;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-green-500 selection:text-black">
+
+    <div id="cursor-glow"></div>
+
+    <nav class="fixed w-full z-50 nav-glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <div class="flex items-center gap-4 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-gray-700 shadow-lg group-hover:border-green-500 transition-colors">
+                        <img src="src/assets/triborigen logo.jpg" alt="TribOriGen Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold formal-font text-white tracking-wide">TribOriGen</span>
+                        <span class="text-[10px] text-green-500 uppercase tracking-widest formal-font">ত্রিচক্রের একটি সিস্টার কনসার্ন</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#problem" class="text-xs font-bold text-gray-300 hover:text-green-400 transition-colors tracking-wide">সংকট</a>
+                    <a href="#technology" class="text-xs font-bold text-gray-300 hover:text-green-400 transition-colors tracking-wide">প্রযুক্তি</a>
+                    <a href="#applications" class="text-xs font-bold text-gray-300 hover:text-green-400 transition-colors tracking-wide">ব্যবহার</a>
+                    <a href="#simulator" class="text-xs font-bold text-gray-300 hover:text-green-400 transition-colors tracking-wide">প্রভাব</a>
+                    <a href="#finance" class="text-xs font-bold text-gray-300 hover:text-green-400 transition-colors tracking-wide">আর্থিক</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="px-4 py-1.5 rounded-full border border-gray-600 text-xs font-bold text-gray-300 hover:bg-white/10 hover:border-green-500 transition-all flex items-center gap-2">
+                        <span>🇺🇸</span> EN
+                    </a>
+                    <a href="https://www.trichokro.com" target="_blank" class="hidden md:inline-flex items-center justify-center px-6 py-2 border border-green-600/30 text-xs font-bold text-green-400 hover:bg-green-500 hover:text-black transition-all rounded-sm uppercase tracking-wider">
+                        TriChokro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 z-0">
+            <source src="src/assets/Trioborigengif.MP4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#0f0f0f] z-1"></div>
+        <div class="absolute inset-0 tire-texture opacity-40 z-1 pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up" data-aos-duration="1000">
+            <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-black/40 border border-white/10 mb-8 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-gray-300 tracking-widest uppercase formal-font">অবকাঠামোতে নতুন বিপ্লব</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight formal-font drop-shadow-2xl">
+                বর্জ্য টায়ারকে রূপান্তর করুন <br>
+                <span id="typewriter" class="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-emerald-400 to-green-600"></span><span class="cursor">&nbsp;</span>
+            </h1>
+            
+            <p class="mt-8 text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                পরিবেশগত দায়কে বৃত্তাকার এবং উচ্চ-ক্ষমতাসম্পন্ন অবকাঠামো সম্পদে রূপান্তর করার একটি অগ্রণী উদ্যোগ।
+            </p>
+
+            <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center" data-aos="fade-up" data-aos-delay="400">
+                <a href="#technology" class="btn-shine inline-flex items-center justify-center px-10 py-4 bg-green-600 text-white font-bold text-sm tracking-widest uppercase hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(74,222,128,0.2)] rounded-sm formal-font">
+                    আমাদের প্রযুক্তি
+                </a>
+                <a href="#simulator" class="inline-flex items-center justify-center px-10 py-4 border border-white/20 text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-all rounded-sm backdrop-blur-sm formal-font">
+                    প্রভাব যাচাই
+                </a>
+                <a href="src/assets/pdf/TriOboriGen 2026.pdf" target="_blank" class="inline-flex items-center justify-center px-10 py-4 bg-green-900/30 border border-green-500/30 text-green-400 font-bold text-sm tracking-widest uppercase hover:bg-green-500/20 transition-all rounded-sm backdrop-blur-sm formal-font">
+                    রিপোর্ট ডাউনলোড <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crisis Section -->
+    <section id="problem" class="py-32 bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 formal-font">একটি বৈশ্বিক <span class="text-red-500">জরুরি অবস্থা</span></h2>
+                <div class="w-24 h-1 bg-red-500 mx-auto mt-8"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="hover-card bg-[#161616] p-10 border border-gray-800 group relative overflow-hidden" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="cloud-fog" class="w-24 h-24 text-red-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 formal-font group-hover:text-red-400 transition-colors">বিষাক্ত বায়ু দূষণ</h3>
+                    <ul class="text-gray-400 space-y-4 text-sm font-light">
+                        <li class="flex items-start"><span class="text-red-500 mr-2">•</span><span>সিমেন্ট ভাটায় টায়ার পোড়ালে <strong class="text-white">+৩৭% CO</strong> বৃদ্ধি পায়।</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2">•</span><span>PM10 এর মাত্রা <strong class="text-white">১৮,৯৪০ µg/m³</strong> পর্যন্ত হতে পারে।</span></li>
+                    </ul>
+                </div>
+                <div class="hover-card bg-[#161616] p-10 border border-gray-800 group relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="droplets" class="w-24 h-24 text-blue-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 formal-font group-hover:text-blue-400 transition-colors">মহাসাগর দূষণ</h3>
+                    <ul class="text-gray-400 space-y-4 text-sm font-light">
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>সামুদ্রিক মাইক্রোপ্লাস্টিকের <strong class="text-white">৫-১০%</strong> টায়ার থেকে আসে।</span></li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>জিঙ্ক ও লেডের মতো ভারী ধাতু পানিতে মিশে যায়।</span></li>
+                    </ul>
+                </div>
+                <div class="hover-card bg-[#161616] p-10 border border-gray-800 group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="map-pin" class="w-24 h-24 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 formal-font group-hover:text-orange-400 transition-colors">বাংলাদেশের প্রেক্ষাপট</h3>
+                    <ul class="text-gray-400 space-y-4 text-sm font-light">
+                        <li class="flex items-start"><span class="text-orange-500 mr-2">•</span><span>বার্ষিক <strong class="text-white">১,৫০,০০০ টন</strong> বর্জ্য টায়ার তৈরি হয়।</span></li>
+                        <li class="flex items-start"><span class="text-orange-500 mr-2">•</span><span>যত্রতত্র ডাম্পিং জমির উর্বরতা নষ্ট করছে।</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-32 bg-[#141414] relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <span class="text-green-500 font-bold tracking-widest uppercase text-xs mb-2 block formal-font">আমাদের পদ্ধতি</span>
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-8 formal-font">প্রকৌশল ও <br> <span class="text-green-500">সহনশীলতা</span></h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        আমরা গ্রাউন্ড টায়ার রাবার (GTR) ব্যবহার করে উন্নত ইলাস্টোমার তৈরি করি। মেকানোকেমিক্যাল অ্যাক্টিভেশনের মাধ্যমে সালফার বন্ড ভেঙে একটি সেলফ-হিলিং উপাদান তৈরি করা হয়।
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-center group">
+                            <div class="w-12 h-12 flex-shrink-0 bg-green-900/20 border border-green-500/30 flex items-center justify-center mr-6 group-hover:bg-green-500 group-hover:text-black transition-all">
+                                <span class="font-bold font-serif">০১</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg formal-font">শ্রেডিং ও গ্রাইন্ডিং</h4>
+                                <p class="text-sm text-gray-500">২০-৪০ মেশের চিপসে পরিণত করা।</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center group">
+                            <div class="w-12 h-12 flex-shrink-0 bg-green-900/20 border border-green-500/30 flex items-center justify-center mr-6 group-hover:bg-green-500 group-hover:text-black transition-all">
+                                <span class="font-bold font-serif">০২</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg formal-font">ডিভলকানাইজেশন</h4>
+                                <p class="text-sm text-gray-500">রাবার চেইন পুনরায় সক্রিয় করতে প্যান মিলিং।</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center group">
+                            <div class="w-12 h-12 flex-shrink-0 bg-green-900/20 border border-green-500/30 flex items-center justify-center mr-6 group-hover:bg-green-500 group-hover:text-black transition-all">
+                                <span class="font-bold font-serif">০৩</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg formal-font">অ্যাক্টিভেশন</h4>
+                                <p class="text-sm text-gray-500">উচ্চ-ক্ষমতাসম্পন্ন বাইন্ডার তৈরি।</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative" data-aos="fade-left">
+                    <div class="absolute -inset-4 bg-green-500/10 blur-3xl rounded-full"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-[#1a1a1a] p-8 border border-gray-800 flex flex-col items-center text-center aspect-square justify-center hover:border-green-500/50 transition-colors">
+                            <i data-lucide="scissors" class="w-10 h-10 text-gray-400 mb-4"></i>
+                            <span class="text-white font-bold uppercase text-sm tracking-wider formal-font">শ্রেডিং</span>
+                        </div>
+                        <div class="bg-[#1a1a1a] p-8 border border-gray-800 flex flex-col items-center text-center aspect-square justify-center hover:border-green-500/50 transition-colors mt-8">
+                            <i data-lucide="zap" class="w-10 h-10 text-gray-400 mb-4"></i>
+                            <span class="text-white font-bold uppercase text-sm tracking-wider formal-font">অ্যাক্টিভেশন</span>
+                        </div>
+                        <div class="bg-[#1a1a1a] p-8 border border-gray-800 flex flex-col items-center text-center aspect-square justify-center hover:border-green-500/50 transition-colors -mt-8">
+                            <i data-lucide="settings" class="w-10 h-10 text-gray-400 mb-4"></i>
+                            <span class="text-white font-bold uppercase text-sm tracking-wider formal-font">প্রসেসিং</span>
+                        </div>
+                        <div class="bg-[#1a1a1a] p-8 border border-gray-800 flex flex-col items-center text-center aspect-square justify-center hover:border-green-500/50 transition-colors">
+                            <i data-lucide="check-circle" class="w-10 h-10 text-green-500 mb-4"></i>
+                            <span class="text-white font-bold uppercase text-sm tracking-wider formal-font">ফাইনাল প্রোডাক্ট</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Applications Section (Bangla) -->
+    <section id="applications" class="py-32 bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-5xl font-bold text-white text-center mb-16 formal-font" data-aos="fade-up">বহুমুখী <span class="text-green-500">ব্যবহার</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- App 1 -->
+                <div class="group relative h-[400px] rounded-lg overflow-hidden border border-gray-800 cursor-pointer" data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1542361345-89e58247f2d5?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60">
+                    <div class="absolute bottom-0 left-0 p-8 z-20">
+                        <h3 class="text-2xl font-bold text-white mb-2 formal-font">স্মার্ট রাস্তা</h3>
+                        <p class="text-gray-400 text-sm mb-4 h-0 overflow-hidden group-hover:h-auto transition-all duration-500">
+                            মডিফাইড অ্যাসফল্ট যা দ্বিগুণ টেকসই, তাপীয় ফাটল প্রতিরোধ করে এবং হাইওয়ে অবকাঠামোর জন্য সেলফ-হিলিং বৈশিষ্ট্যযুক্ত।
+                        </p>
+                        <span class="text-green-500 text-xs font-bold uppercase tracking-widest border-b border-green-500 pb-1">বিস্তারিত দেখুন</span>
+                    </div>
+                </div>
+
+                <!-- App 2 -->
+                <div class="group relative h-[400px] rounded-lg overflow-hidden border border-gray-800 cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1530263503756-b3822955974b?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60">
+                    <div class="absolute bottom-0 left-0 p-8 z-20">
+                        <h3 class="text-2xl font-bold text-white mb-2 formal-font">শিল্প ফ্লোরিং</h3>
+                        <p class="text-gray-400 text-sm mb-4 h-0 overflow-hidden group-hover:h-auto transition-all duration-500">
+                            কারখানা এবং গুদামের জন্য উচ্চ-চাপ সহনশীল মেঝে। এটি পিছলে পড়া রোধ করে, শব্দ কমায় এবং রাসায়নিক প্রতিরোধী।
+                        </p>
+                        <span class="text-green-500 text-xs font-bold uppercase tracking-widest border-b border-green-500 pb-1">বিস্তারিত দেখুন</span>
+                    </div>
+                </div>
+
+                <!-- App 3 -->
+                <div class="group relative h-[400px] rounded-lg overflow-hidden border border-gray-800 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1486262715619-72a604e3d7b9?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60">
+                    <div class="absolute bottom-0 left-0 p-8 z-20">
+                        <h3 class="text-2xl font-bold text-white mb-2 formal-font">অটোমোটিভ পার্টস</h3>
+                        <p class="text-gray-400 text-sm mb-4 h-0 overflow-hidden group-hover:h-auto transition-all duration-500">
+                            গাড়ির বুশিং, সিল এবং ম্যাট তৈরির জন্য টেকসই কাঁচামাল, যা অটো শিল্পে একটি পূর্ণাঙ্গ চক্র নিশ্চিত করে।
+                        </p>
+                        <span class="text-green-500 text-xs font-bold uppercase tracking-widest border-b border-green-500 pb-1">বিস্তারিত দেখুন</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Impact Simulator (Bangla) -->
+    <section id="simulator" class="py-32 bg-[#121212] relative">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="bg-[#1a1a1a]/80 backdrop-blur-xl border border-gray-700 rounded-2xl p-12 text-center shadow-2xl">
+                <h2 class="text-3xl font-bold text-white mb-2 formal-font">গ্রিন ক্যালকুলেটর</h2>
+                <p class="text-gray-400 mb-10">TribOriGen GTR অ্যাসফল্ট ব্যবহারে তাৎক্ষণিক প্রভাব দেখুন।</p>
+
+                <div class="mb-12">
+                    <label class="block text-left text-sm font-bold text-green-500 uppercase tracking-widest mb-4">
+                        রাস্তা নির্মাণের দৈর্ঘ্য (কিলোমিটার)
+                    </label>
+                    <input type="range" min="1" max="100" value="10" class="w-full" id="roadRange" oninput="calculateImpact()">
+                    <div class="flex justify-between text-xs text-gray-500 mt-2">
+                        <span>১ কিমি</span>
+                        <span id="kmDisplay" class="text-white font-bold text-lg">১০ কিমি</span>
+                        <span>১০০ কিমি</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-black/50 p-6 rounded-xl border border-gray-700">
+                        <i data-lucide="trash-2" class="w-8 h-8 text-green-500 mx-auto mb-2"></i>
+                        <h4 class="text-4xl font-bold text-white mb-1 formal-font" id="tiresCount">২০,০০০</h4>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">বর্জ্য টায়ার ব্যবহার</p>
+                    </div>
+                    <div class="bg-black/50 p-6 rounded-xl border border-gray-700">
+                        <i data-lucide="leaf" class="w-8 h-8 text-green-500 mx-auto mb-2"></i>
+                        <h4 class="text-4xl font-bold text-white mb-1 formal-font" id="co2Count">৪৫০</h4>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">টন CO2 সাশ্রয়</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+    </section>
+
+    <!-- Financials -->
+    <section id="finance" class="py-32 bg-[#0f0f0f] border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-16 formal-font">আর্থিক <span class="text-green-500">ওভারভিউ</span></h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- CAPEX Table -->
+                <div class="bg-[#161616] p-10 border border-gray-800 hover:border-green-500/30 transition-colors">
+                    <h3 class="text-2xl font-bold text-white mb-8 formal-font border-b border-gray-800 pb-4">মূলধনী ব্যয় (CAPEX)</h3>
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center group">
+                            <span class="text-gray-400 group-hover:text-white transition-colors">প্রাইমারি শ্রেডার</span>
+                            <span class="text-white font-mono font-bold">৩১.৫%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-1">
+                            <div class="bg-green-600 h-1" style="width: 31.5%"></div>
+                        </div>
+                        <div class="flex justify-between items-center group">
+                            <span class="text-gray-400 group-hover:text-white transition-colors">হ্যামার মিল</span>
+                            <span class="text-white font-mono font-bold">২৭.০%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-1">
+                            <div class="bg-green-600 h-1" style="width: 27%"></div>
+                        </div>
+                        <div class="flex justify-between items-center group">
+                            <span class="text-gray-400 group-hover:text-white transition-colors">প্যান মিলিং ইউনিট</span>
+                            <span class="text-white font-mono font-bold">১২.০%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-1">
+                            <div class="bg-green-600 h-1" style="width: 12%"></div>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-gray-800 flex justify-between items-center">
+                            <span class="text-white font-bold uppercase tracking-wider text-sm formal-font">মোট বিনিয়োগ</span>
+                            <span class="text-green-400 font-bold text-xl formal-font">৩,৪৫,০০০ টাকা</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- OPEX & Revenue -->
+                <div class="grid grid-cols-1 gap-8">
+                    <div class="bg-[#161616] p-8 border border-gray-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-gray-500 text-xs font-bold uppercase tracking-widest formal-font">মাসিক পরিচালন ব্যয়</span>
+                            <h3 class="text-3xl font-bold text-white mt-2 formal-font">৪৪,৫০০ টাকা</h3>
+                        </div>
+                        <div class="mt-8">
+                            <p class="text-sm text-gray-400">মজুরি, বিদ্যুৎ, রক্ষণাবেক্ষণ এবং লজিস্টিকস অন্তর্ভুক্ত।</p>
+                        </div>
+                    </div>
+                    <div class="bg-green-900/10 p-8 border border-green-500/20 flex flex-col justify-between">
+                        <div>
+                            <span class="text-green-500 text-xs font-bold uppercase tracking-widest formal-font">রাজস্ব মডেল</span>
+                            <h3 class="text-3xl font-bold text-white mt-2 formal-font">বৈচিত্র্যময়</h3>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs border border-green-500/30">বিক্রয় (৪০%)</span>
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs border border-blue-500/30">কনসালটেন্সি (২৫%)</span>
+                            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs border border-purple-500/30">R&D (১৫%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-gray-900 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="src/assets/triborigen logo.jpg" alt="Logo" class="w-8 h-8 rounded-full grayscale hover:grayscale-0 transition-all">
+                        <span class="text-2xl font-bold text-white formal-font">TribOriGen</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-sm">
+                        টেকসই প্রকৌশল এবং বৃত্তাকার অর্থনৈতিক মডেলের মাধ্যমে টায়ার বর্জ্য সংকট সমাধানের জন্য প্রতিশ্রুতিবদ্ধ। ত্রিচক্র অটোমোটিভস-এর একটি উদ্যোগ।
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 formal-font">লিঙ্কসমূহ</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#technology" class="hover:text-green-500 transition-colors">প্রযুক্তি</a></li>
+                        <li><a href="#market" class="hover:text-green-500 transition-colors">বাজার বিশ্লেষণ</a></li>
+                        <li><a href="#finance" class="hover:text-green-500 transition-colors">আর্থিক</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 formal-font">যোগাযোগ</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-green-600 hover:text-white transition-all"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-green-600 hover:text-white transition-all"><i data-lucide="mail" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+                <p>&copy; ২০২৪ TribOriGen। সর্বস্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        lucide.createIcons();
+        AOS.init({ once: false, mirror: true, duration: 1000, offset: 50 });
+
+        // Calculator Logic (Bangla)
+        function calculateImpact() {
+            const km = document.getElementById('roadRange').value;
+            // Converting numbers to Bangla digits roughly or keeping English for clarity in tech context
+            // For now, keeping standard numerals but context in Bangla
+            document.getElementById('kmDisplay').innerText = km + " কিমি";
+            
+            const tires = km * 2000; 
+            const co2 = km * 45;
+
+            document.getElementById('tiresCount').innerText = tires.toLocaleString();
+            document.getElementById('co2Count').innerText = co2.toLocaleString();
+        }
+
+        const textElement = document.getElementById('typewriter');
+        const phrases = ["টেকসই উপকরণে", "উন্নত সড়কে", "বৃত্তাকার অর্থনীতিতে"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            const typeSpeed = isDeleting ? 50 : 100;
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, typeSpeed);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-0', 'h-16');
+                navbar.classList.remove('h-24');
+            } else {
+                navbar.classList.remove('py-0', 'h-16');
+                navbar.classList.add('h-24');
+            }
+        });
+
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+    </script>
+</body>
+</html>
